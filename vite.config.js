@@ -10,7 +10,10 @@ import { createRequire } from 'node:module'
 // straight into the site's public folder.
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
-  const siteDir = path.resolve(__dirname, env.SITE_DIR || '../../white-stupa-react')
+  // Where the website is: SITE_DIR if set; otherwise the parent folder when this admin sits in the
+  // website repo as admin/; otherwise the sibling layout OPOLO/white-stupa-react.
+  const siteDir = path.resolve(__dirname, env.SITE_DIR
+    || (fs.existsSync(path.join(__dirname, '..', 'src', 'content', 'siteContent.js')) ? '..' : '../../white-stupa-react'))
   const sitePublic = path.join(siteDir, 'public')
   if (!fs.existsSync(path.join(siteDir, 'src'))) {
     throw new Error(`White Stupa website not found at ${siteDir}. Set SITE_DIR in .env`)

@@ -8,11 +8,21 @@ Same stack as the website: React 19 + Vite 6, same fonts, navy palette and logo.
 
 ## Folder layout it expects
 
+Either of these works; the admin finds the website by itself:
+
+    white-stupa-website/                  ← the website repo
+      admin/                              ← this admin (inside the website)
+
     OPOLO/
       white-stupa-react/                  ← the website
-      white-stupa-admin-react/react-admin ← this admin
+      white-stupa-admin-react/react-admin ← this admin (next to it)
 
 If the website lives elsewhere, copy `.env.example` to `.env` and set `SITE_DIR`.
+
+Building the admin needs the website's packages installed (it uses the website's build tools):
+run `npm install` in the website folder first. For a Netlify site from the website repo use
+base directory `admin`, build command `npm install --prefix .. && npm install && npm run build`,
+publish directory `admin/dist`, and set `VITE_API_URL` and `VITE_SITE_URL`.
 
 ## Run
 
